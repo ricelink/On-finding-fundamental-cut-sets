@@ -1,12 +1,12 @@
-# -*- coding: UTF-8 -*-
+
 #this program aims finding all fundamental cut sets,
 #when the spanning tree T in undirected graph G is given 
-#
+#Python 3.6
 #rongjian liu <rongjliu@foxmail.com>
 #Jun/16/2018
 #
 #Refernece: Saxena, S. (2010). On finding fundamental cut sets. Information Processing Letters, 110(4), 168-170.
-import copy 
+import copy
 import math
 import random
 import sys 
