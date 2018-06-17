@@ -1,4 +1,4 @@
-#
+# -*- coding: UTF-8 -*-
 #this program aims finding all fundamental cut sets,
 #when the spanning tree T in undirected graph G is given 
 #
@@ -69,10 +69,10 @@ class Matrix_G:
 		#localtime = str(time.time())
 		#f.write(localtime)
 		str11=''.join('%s' %self.N)
-		f.write("adjacent matrix is "+str11+"*"+str11+ " begin:\n")
+		f.write("\nadjacent matrix is "+str11+"*"+str11+ "\nbegin:\n")
 		for i in range(self.N):
-			str=",".join('%s' %id for id in  self.Matrix[i])
-			f.write(str)
+			str1=",".join('%s' %id for id in self.Matrix[i])
+			f.write(str1)
 			f.write('\n')
 		f.write('end\n')
 		f.close()
@@ -236,21 +236,32 @@ def main(N=1,p=0):
 	G.alphaprocess()
 	S=fundmentalcutsets(G)
 	f =open(txtName,"a+")
-	f.write("the fundmental cut set is\n")
+	f.write("\nthe fundmental cut sets are: \nbegin \nthe root vertex is "+str(G.root_vertex)+'.\n')
 	for i in range(len(S)):
-		str=",".join('%s' %id for id in S[i])
-		f.write(str)
-		f.write('\n')
+		SI = S[i]
+		# print(type(SI))
+		# str1=str(i)
+		if G.vertex[i].parent==-1:
+			continue
+		else:
+			f.write('for edge ('+str(i)+','+str(G.vertex[i].parent)+'), there exist(s) '+str(len(SI))+' edge(s) need to be removed\n')
+		for jj in range(len(SI)):
+			f.write('('+str(SI[jj].u)+','+str(SI[jj].v)+') ')
+		if G.vertex[i].parent!=-1:
+			f.write('\n')
 	f.write('end\n')
 	f.close()
 
 
-N = 500 #the vertex number of graph G
+N = 500#the vertex number of graph G
 p=math.log(N)/N #when probability p>=ln(N)/N, the all most every random G is connected
 
 #p=min(p*1.2,1)
-p=1
+# p=1
 start=time.time()
 main(N,p)
 end=time.time()
 print('p=',p,'N=',N,'cost time =',end-start,'s')
+f =open(txtName,"a+")
+f.write('\np='+str(p)+' N='+str(N)+' the runtime is '+str(end-start)+'s\n')
+f.close()
